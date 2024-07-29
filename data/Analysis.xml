@@ -1,0 +1,191 @@
+<config>
+   <version>V3</version>
+   <general>
+	   <dataDir>/home/shared_data_medgen_aorta/pbrit_data</dataDir>
+	   <!-- <dataDir>/mnt/run116/pbrit_data</dataDir> -->
+	   <annoSource> 
+		   <value>HPO</value>
+		   <value>DO</value>
+		   <value>HUGE</value>
+		   <value>GAD</value>
+		   <value>GO</value>
+		   <value>MPO</value>
+		   <value>PUB</value>
+		   <value>PATH</value>
+		   <value>PPI</value>
+		   <value>SEQ</value>
+		   <value>HUGO</value>
+		   <value>UNIPROT</value>
+		   <value>MAP</value>
+	   </annoSource>
+	   <annoDir> 
+		   <value>DATA</value>
+		   <value>INPUT</value>
+		   <value>OBO</value>
+		   <value>MATRICES</value>
+		   <value>QSUB</value>
+		   <value>QOUT</value>
+	   </annoDir>
+	   <tools>
+		   <R>/opt/software/R/3.2.1/bin/Rscript</R>
+		   <tfidfRest>TFIDF_score.R</tfidfRest>
+		   <tfidfAbst>TFIDF_score_ABST.R</tfidfAbst>
+		   <svd>computeTFIDF_SVD.R</svd>
+		   <blastp></blastp>
+		   <blastdb></blastdb>
+	   </tools>
+
+   </general>
+   <qsub>
+	   <N>PBRIT_TFIDF</N>
+	   <!-- <A>Aorta</A>
+	   <q>Prioritization</q> -->
+	   <d>%AnnoDataDir%</d>
+	   <o>%AnnoOutDir%</o>
+	   <e>%AnnoErrorDir%</e>
+	   <l> 
+	   	<value>nodes=1</value>
+	   	<value>ppn=18</value>
+	   	<value>mem=60gb</value>
+   	   </l>
+   </qsub>
+
+   <HUGO> 
+   	<ensgHugo>ENSG_HGNC.txt</ensgHugo>
+	<hugoEnsg>HGNC_ENSG.txt</hugoEnsg>
+   
+   </HUGO>
+   <GO>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/goa_human.gaf</annoFile>
+	   <obo>OBO/gene_ontology_edit.obo.2018-10-01</obo>
+	   <geneGO>INPUT/HGNC_go_preprocess.txt</geneGO>
+	   <geneGOPar>INPUT/HGNC_gene_go.txt</geneGOPar>
+	   <geneNoGo>INPUT/HGNC_gene_no_go.txt</geneNoGo>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </GO>
+
+   <HPO>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt</annoFile>
+	   <obo>OBO/hp.obo</obo>
+	   <geneONT>INPUT/HGNC_hpo_preprocess.txt</geneONT>
+	   <geneONTPar>INPUT/HGNC_gene_hpo.txt</geneONTPar>
+	   <geneNoONT>INPUT/HGNC_gene_no_hpo.txt</geneNoONT>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </HPO>
+
+   <DO>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>
+		   <value>DATA/human_disease_experiments_full.tsv</value>
+		   <value>DATA/human_disease_textmining_full.tsv</value>
+		   <value>DATA/human_disease_knowledge_full.tsv</value>
+	   </annoFile>
+	   <obo>OBO/doid.obo</obo>
+	   <geneONT>INPUT/HGNC_do_preprocess.txt</geneONT>
+	   <geneONTPar>INPUT/HGNC_gene_do.txt</geneONTPar>
+	   <geneNoONT>INPUT/HGNC_gene_no_do.txt</geneNoONT>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </DO>
+
+   <MPO>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>
+		   <value>DATA/HMD_HumanPhenotype.rpt</value>
+		   <value>DATA/MGI_PhenoGenoMP.rpt</value>
+	   </annoFile>
+	   <obo>OBO/MPheno_OBO.ontology</obo>
+	   <geneONT>INPUT/HGNC_mpo_preprocess.txt</geneONT>
+	   <geneONTPar>INPUT/HGNC_gene_mpo.txt</geneONTPar>
+	   <geneNoONT>INPUT/HGNC_gene_no_mpo.txt</geneNoONT>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </MPO>
+   <GAD>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/gad_adjusted_2014.txt</annoFile>
+	   <noMesh>DATA/gad_no_meshTerm.txt</noMesh>
+	   <tmp>DATA/gad_except_tmp.txt</tmp>
+	   <geneGAD>INPUT/HGNC_gad_preprocess.txt</geneGAD>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </GAD>
+
+   <HUGE>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/Disease-GeneID.txt</annoFile>
+	   <geneHUGE>INPUT/HGNC_huge_preprocess.txt</geneHUGE>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </HUGE>
+
+   <PATH>
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/CPDB_pathways_HGNC.txt</annoFile>
+	   <genePY>INPUT/HGNC_pathway_preprocess.txt</genePY>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </PATH>
+
+   <PPI>
+	   <!-- <rscript>/home/aakumar/R/R-3.0.1/bin/Rscript /home/aakumar/pbrit_scripts/TFIDF_score.R</rscript> -->
+	   <rscript>TFIDF_score.R</rscript>
+	   <annoFile>DATA/CPDB_Interactions_HGNC.txt</annoFile>
+	   <genePP>INPUT/HGNC_ppi_preprocess.txt</genePP>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </PPI>
+   
+   <PUB> 
+	   <!-- <rscript>/home/aakumar/R/R-3.0.1/bin/Rscript /home/aakumar/pbrit_scripts/TFIDF_score.R</rscript> -->
+	   <rscript>TFIDF_score.R</rscript>
+	   <pubFile>DATA/PUB_ABSTRACT.txt</pubFile>
+	   <ensgPubFile>DATA/ENSG_PUB.txt</ensgPubFile>
+	   <stopWord>DATA/Stop_Words.txt</stopWord>
+	   <annoFile>DATA/ENSG_PUBMED_ABSTRACT.txt</annoFile>
+	   <abstStem>DATA/ENSG_PUBMED_ABSTRACT_STEMMED.txt</abstStem>
+	   <matRow>INPUT/HGNC_rownames.txt</matRow>
+	   <matCol>INPUT/HGNC_colnames.txt</matCol>
+	   <matSparse>INPUT/HGNC_sparse.txt</matSparse>
+   </PUB>
+
+   <SEQ> 
+	   <rawInpSeq>DATA/ENSG_MAP_PROT_SEQ.txt</rawInpSeq>
+	   <blastOut>INPUT/BLAST_RESULTS.out</blastOut>
+	   <blastOutBit>INPUT/QUERY_TARGET_BIT.txt</blastOutBit>
+	   <blastOutNorm>INPUT/QUERY_TARGET_BIT_NORM.txt</blastOutNorm>
+	   <rscript>createSeqMatrix.R</rscript>
+	   <matOutFile>MATRICES/ENSG.sim.mat</matOutFile>
+   </SEQ>
+
+   <UNIPROT> 
+	   <idMap>DATA/HUMAN_9606_idmapping_selected.tab</idMap>
+   </UNIPROT> 
+
+   <MAP>
+	   <rscript>mapHgnc2Ensg.R</rscript>
+	   <i>HUGO/HGNC_ENSEMBL_RAW_MAPPING.txt</i>
+	   <o>DATA/HGNC_ENSEMBL_PROCESSED.txt</o>
+	   <p>DATA/PPI_ENSEMBL_MAP.txt</p>
+   </MAP>
+
+   <COMP>
+   	<compBin>compositeMatrix.R</compBin>
+   	<convBin>reshapeMatrix.R</convBin>
+   </COMP>
+   
+
+</config>
+	
